@@ -820,3 +820,105 @@ $(document).ready(function () {
     initRestabook();
     initparallax();
 });
+
+// tabs
+const tabs = document.querySelectorAll('.tab-item'),
+      tabsContent = document.querySelectorAll('.tab-content'),
+      tabsParent = document.querySelector('.tabs-menu');
+
+    function hideTabContent(){
+       tabsContent.forEach(item=>{
+           item.style.display = 'none';
+        });
+       
+        tabs.forEach (item=>{
+            item.classList.remove('current');
+        });
+    }
+    function showTabContent(i = 0){
+        tabsContent[i].style.display = 'block';
+        tabs[i].classList.add('current');
+    }
+    hideTabContent();
+    showTabContent();
+
+   tabsParent.addEventListener('click', (e)=>{
+       const target = e.target;
+       if(target && target.classList.contains('tabs-menu')){
+            tabs.forEach((item, i)=>{
+                if(target == item){
+                   hideTabContent();
+                   showTabContent(i);
+               }
+           });
+        }
+    });
+
+
+
+
+
+
+    // slider 2
+const slides = document.querySelectorAll('.swiper-slides'),
+prev = document.querySelector('.tc-button-prev'),
+next = document.querySelector('.tc-button-next');
+
+let slideIndex = 1;
+
+showSlides(slideIndex);
+
+ function showSlides(n){
+    if(n> slides.length){
+        slideIndex = 1;
+    }
+    if(n<1){
+        slideIndex = slides.length;
+    }
+    slides.forEach(item => item.style.display ='none');
+    slides[slideIndex - 1].style.display ='block';
+   
+ }
+ function  plusSlides(n){
+    showSlides(slideIndex += n);
+ }
+ prev.addEventListener('click', ()=>{
+    plusSlides(-1);
+ });
+ next.addEventListener('click', ()=>{
+    plusSlides(1);
+ });
+
+
+// slider 1
+
+ const slide = document.querySelectorAll('.swiper-slide'),
+left = document.querySelector('.ec-button-prev'),
+right = document.querySelector('.ec-button-next');
+
+let slideInd = 1;
+
+showsSlides(slideInd);
+
+ function showsSlides(n){
+    if(n> slide.length){
+        slideInd = 1;
+    }
+    if(n<1){
+        slideInd = slide.length;
+    }
+    slide.forEach(item => item.style.display ='none');
+    slide[slideInd - 1].style.display ='block';
+   
+ }
+ function  plussSlides(n){
+    showsSlides(slideInd += n);
+ }
+ left.addEventListener('click', ()=>{
+    plussSlides(-1);
+ });
+ right.addEventListener('click', ()=>{
+    plussSlides(1);
+ });
+
+ 
