@@ -921,4 +921,72 @@ showsSlides(slideInd);
     plussSlides(1);
  });
 
- 
+ //timer сделать
+ const timeEnd = '2026-12-09';
+    function getTimeRemaining(endtime){
+        const t = Date.parse(endtime) - Date.parse(new Date()),
+        days = Math.floor(t / (1000 * 60 * 60 * 24)),
+        hours = Math.floor(t / (1000 * 60 * 60) % 24),
+        minutes = Math.floor((t / 1000 / 60) % 60),
+        seconds = Math.floor((t / 1000) % 60);
+        return{
+            'total': t,
+            'days': days,
+            'hours': hours,
+            'minutes': minutes,
+            'seconds': seconds
+        };
+    }
+    function setClock(selector, endtime){
+        const timer = document.querySelector(selector),
+        days = document.querySelector('#days'),
+        hours = document.querySelector('#hours'),
+        minutes = document.querySelector('#minutes'),
+        seconds = document.querySelector('#seconds'),
+        timeInterval = setInterval(updateClock, 1000);
+        updateClock()
+        function updateClock(){
+            const t = getTimeRemaining(endtime);
+            days.innerHTML = t.days;
+            hours.innerHTML = t.hours;
+            minutes.innerHTML = t.minutes;
+            seconds.innerHTML = t.seconds;
+           if(t.total<=0){
+                clearInterval(timeInterval);
+            }
+        }
+    }
+    setClock('.counter-widget', timeEnd);
+
+    //tabs2
+    const tabs1 = document.querySelectorAll('.tabs-item1'),
+      tabsContent1 = document.querySelectorAll('.tab-content1'),
+      tabsParent1 = document.querySelector('.tabs-menu1');
+
+    function hideTabContent1(){
+       tabsContent1.forEach(item=>{
+           item.style.display = 'none';
+        });
+       
+        tabs1.forEach (item=>{
+            item.classList.remove('current');
+        });
+    }
+    function showTabContent(i = 0){
+        tabsContent1[i].style.display = 'block';
+        tabs1[i].classList.add('current');
+    }
+    hideTabContent1();
+    showTabContent1();
+
+   tabsParent1.addEventListener('click', (e)=>{
+       const target = e.target;
+       if(target && target.classList.contains('tabs-menu1')){
+            tabs1.forEach((item, i)=>{
+                if(target == item){
+                   hideTabContent1();
+                   showTabContent1(i);
+               }
+           });
+        }
+    });
